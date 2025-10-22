@@ -1,8 +1,8 @@
 {
-  "name": "create-vrth",
+  "name": "create-vrt",
   "version": "1.0.4",
   "bin": {
-    "create-vrth": "index.js"
+    "create-vrt": "index.js"
   },
   "license": "MIT",
   "dependencies": {
