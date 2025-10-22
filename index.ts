@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import fs from "fs";
 import path from "path";
 import readline from "readline";
@@ -7,34 +6,64 @@ import { execSync } from "child_process";
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
+  prompt: "> "
 })
+
+const runProjectOrNot = (pathToProject: string) => {
+  rl.question("Do you want to run the project? (y/n) ", (answer: string) => {
+    rl.close();
+    if (answer.toLowerCase() === "y") {
+      execSync(`cd ${pathToProject} && npm run dev`, { stdio: "inherit" });
+    }
+    process.exit(0);
+  })
+}
 
 rl.question("What is your project name? ", (projectName: string) => {
-  const dir = path.join(process.cwd(), projectName)
+  const projectDir = path.join(process.cwd(), projectName);
+  const gitDir = path.join(projectDir, ".git");
 
-  if (fs.existsSync(dir)) {
-    console.error(`Directory "${projectName}" already exists.`)
-    rl.close()
-    process.exit(1)
+  if (fs.existsSync(projectDir)) {
+    console.error(`Directory "${projectName}" already exists.`);
+    runProjectOrNot(projectDir);
+    return;
   }
-
-  console.log("Cloning project template... ⏳")
 
   try {
-    execSync(`git clone https://github.com/binhnguyen00/juliette ${projectName}`, { stdio: "inherit" })
 
-    const gitDir = path.join(dir, ".git")
+    console.log("Prepairing template... ⏳");
+    execSync(`git clone https://github.com/binhnguyen00/juliette ${projectName}`, {
+      stdio: "ignore"
+    });
+    if (!fs.existsSync(projectDir)) {
+      console.error(`Failed to prepare template.`);
+      rl.close();
+      process.exit(0);
+    }
     if (fs.existsSync(gitDir)) {
-      fs.rmSync(gitDir, { recursive: true, force: true })
+      fs.rmSync(gitDir, { recursive: true, force: true });
+      fs.rmSync(path.join(projectDir, ".gitignore"), { force: true })
     }
 
-    console.log(`Project "${projectName}" created successfully! ✅`)
-    console.log(`Location: ${dir} 📁`)
+    console.log("Installing dependencies... ⏳");
+    execSync(`cd ${projectDir} && npm install`, {
+      stdio: "ignore"
+    });
+
+    console.log("Building project... ⏳");
+    execSync(`cd ${projectDir} && npm run build`, {
+      stdio: "ignore"
+    });
+
+    console.log(`Project "${projectName}" created successfully! ✅`);
+    console.log(`Location: ${projectDir} 📁`);
+
+    runProjectOrNot(projectDir);
+
   } catch (ex) {
-    console.error("Failed to clone repository:", ex.message)
-    process.exit(1)
-  } finally {
-    rl.close()
+    console.error("Failed to setup project:", ex.message);
+    rl.close();
+    process.exit(0);
   }
-})
+});
