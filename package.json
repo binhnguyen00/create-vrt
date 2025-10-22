@@ -1,6 +1,6 @@
 {
   "name": "@jackjack66/create-vrt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "bin": {
     "create-vrt": "index.js"
   },
