@@ -5,6 +5,7 @@
     "create-vrth": "dist/index.js"
   },
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "build": "tsc"
   },
