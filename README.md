@@ -2,7 +2,7 @@
 
 Are you tired of setting up the same React project configuration over and over again? Spending precious development time on boilerplate setup, configuring build tools, and integrating UI libraries? We've all been there.
 
-**create-vrth** is here to save you time and hassle. It's a zero-config CLI tool that scaffolds a production-ready React application with all the modern tools you need, right out of the box. No more copying configurations from old projects or hunting through documentation – just run one command and start building your app.
+**create-vrt** is here to save you time and hassle. It's a zero-config CLI tool that scaffolds a production-ready React application with all the modern tools you need, right out of the box. No more copying configurations from old projects or hunting through documentation – just run one command and start building your app.
 
 ## What's Included?
 
@@ -13,11 +13,11 @@ Are you tired of setting up the same React project configuration over and over a
 
 **📦 Pre-configured** - Everything wired up and ready to use
 
-Whether you're prototyping a new idea, starting a client project, or just want to experiment without the setup overhead, create-vrth gets you from zero to coding in seconds.
+Whether you're prototyping a new idea, starting a client project, or just want to experiment without the setup overhead, create-vrt gets you from zero to coding in seconds.
 
 ## Installation
 ```bash
-npm install -g create-vrth@latest
+npm install -g create-vrt@latest
 ```
 
 ## Create a new project
@@ -33,4 +33,4 @@ That's it! Your development environment is ready. Just follow the prompts, and y
 
 ---
 
-**Stop wasting time on setup. Start building faster with create-vrth.**
+**Stop wasting time on setup. Start building faster with create-vrt.**
