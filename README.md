@@ -22,7 +22,7 @@ npm install -g create-vrth@latest
 
 ## Create a new project
 ```bash
-npm create vrth
+create-vrth
 ```
 
 That's it! Your development environment is ready. Just follow the prompts, and you'll have a fully configured React application in moments.

@@ -2,9 +2,8 @@
   "name": "create-vrth",
   "version": "1.0.4",
   "bin": {
-    "create-vrth": "dist/index.js"
+    "create-vrth": "index.js"
   },
-  "type": "module",
   "license": "MIT",
   "dependencies": {
     "fs": "^0.0.1-security",
