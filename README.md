@@ -15,6 +15,35 @@ Are you tired of setting up the same React project configuration over and over a
 
 Whether you're prototyping a new idea, starting a client project, or just want to experiment without the setup overhead, create-vrt gets you from zero to coding in seconds.
 
+## 📁 Project Structure
+
+```
+├── public/
+│   └── favicon.svg
+├── src/
+│   ├── components/       # Reusable UI components
+│   │   ├── DefaultLayout.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Navbar.tsx
+│   │   └── index.ts
+│   ├── pages/            # Route page components
+│   │   ├── Home.tsx
+│   │   ├── Page.tsx
+│   │   └── index.ts
+│   ├── css/              # Global styles
+│   │   └── index.css
+│   ├── Application.tsx   # Route configuration
+│   └── Provider.tsx      # HeroUI provider configuration
+│   ├── index.tsx         # Application entry point
+├── index.html
+├── vite.config.ts        # Vite configuration
+├── tailwind.config.js    # TailwindCSS configuration
+├── tsconfig.json         # TypeScript configuration
+├── postcss.config.js     # PostCSS configuration
+├── package.json          # Dependencies and scripts
+└── dockerfile            # Docker configuration
+```
+
 ## Installation
 ```bash
 npm install -g create-vrt@latest
