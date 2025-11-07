@@ -6,6 +6,8 @@ Are you tired of setting up the same React project configuration over and over a
 
 Stop wasting time on setup! Start building faster.
 
+![Home](https://raw.githubusercontent.com/binhnguyen00/juliette/refs/heads/main/assets/home.png)
+
 ## What's Included?
 
 - **Vite⚡**
