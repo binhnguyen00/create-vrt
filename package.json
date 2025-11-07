@@ -1,5 +1,11 @@
 {
   "name": "@jackjack66/create-vrt",
+  "keywords": [
+    "cli",
+    "vite",
+    "react",
+    "tailwind"
+  ],
   "version": "1.0.5",
   "bin": {
     "create-vrt": "index.js"
