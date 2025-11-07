@@ -55,5 +55,3 @@ npm install -g create-vrt@latest
 ```bash
 create-vrt
 ```
-
-## Stop wasting time on setup. Start building faster with `create-vrt`.
