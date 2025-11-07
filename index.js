@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const fs = require("fs");
+const ora = require("ora");
 const path = require("path");
 const readline = require("readline");
 const { execSync } = require("child_process");
@@ -11,37 +12,61 @@ const rl = readline.createInterface({
 });
 
 const runProjectOrNot = (pathToProject) => {
-  rl.question("Do you want to run the project? (y/n) ", (answer) => {
-    rl.close();
+  const _rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  _rl.question("Do you want to run the project? (y/n) ", (answer) => {
+    _rl.close();
     if (answer.toLowerCase() === "y") {
-      execSync(`cd ${pathToProject} && npm run dev`, { stdio: "inherit" });
+      let spinner = ora("Running project...").start();
+      execSync(`cd ${pathToProject} && npm run dev`, { stdio: "ignore" });
+      spinner.succeed("Running project...\n");
     }
     else {
-      console.log("Skipped running");
-      console.log("Your project is ready! 🌱");
+      console.log("Skipped running\n");
+      console.log("Your project is ready! 🌱\n");
     }
     process.exit(0);
   });
 };
 
-rl.question("What is your project name? ", (projectName) => {
-  const projectDir = path.join(process.cwd(), projectName);
+rl.question("What is your project name? (name / 'enter' to setup on current directory) \n > ", (projectName) => {
+  const isEmptyProjectName = !projectName;
+  const projectDir = isEmptyProjectName
+    ? path.join(process.cwd())
+    : path.join(process.cwd(), projectName);
   const gitDir = path.join(projectDir, ".git");
-  if (fs.existsSync(projectDir)) {
-    console.error(`Directory "${projectName}" already exists.`);
-    runProjectOrNot(projectDir);
-    return;
+
+  if (!isEmptyProjectName) {
+    if (fs.existsSync(projectDir)) {
+      console.info(`Directory "${projectName}" already exists.`);
+
+      const files = fs.readdirSync(projectDir).length;
+      const isEmptyDir = files === 0;
+      if (!isEmptyDir) {
+        console.error(`Directory "${projectName}" is not empty! Found ${files} files. skipped.`);
+        rl.close();
+        return;
+      }
+    }
   }
 
   try {
+    const spinner = ora("Preparing template...").start();
 
-    console.log("Prepairing template... ⏳");
-    execSync(`git clone https://github.com/binhnguyen00/juliette ${projectName}`, {
-      stdio: "ignore"
-    });
+    if (isEmptyProjectName) {
+      execSync(`git clone https://github.com/binhnguyen00/juliette`, { stdio: "ignore" });
+      fs.cpSync(path.join(process.cwd(), "juliette"), projectDir, { recursive: true });
+      fs.rmSync(path.join(process.cwd(), "juliette"), { recursive: true, force: true });
+    } else {
+      execSync(`git clone https://github.com/binhnguyen00/juliette ${projectName}`, { stdio: "ignore" });
+    }
+    spinner.succeed("Preparing template...\n");
 
     if (!fs.existsSync(projectDir)) {
-      console.error(`Failed to prepare template.`);
+      spinner.fail("Failed to prepare template");
       rl.close();
       process.exit(0);
     } else {
@@ -53,18 +78,20 @@ rl.question("What is your project name? ", (projectName) => {
       fs.rmSync(path.join(projectDir, ".gitignore"), { force: true });
     }
 
-    console.log("Installing dependencies... ⏳");
-    execSync(`cd ${projectDir} && npm install`, {
-      stdio: "ignore"
-    });
+    spinner.start("Installing dependencies...");
+    execSync(`cd ${projectDir} && npm install`, { stdio: "ignore" });
+    spinner.succeed("Installing dependencies...\n");
 
-    console.log("Building project... ⏳");
-    execSync(`cd ${projectDir} && npm run build`, {
-      stdio: "ignore"
-    });
+    spinner.start("Building project...");
+    execSync(`cd ${projectDir} && npm run build`, { stdio: "ignore" });
+    spinner.succeed("Building project...\n");
 
-    console.log(`Project "${projectName}" created successfully! ✅`);
-    console.log(`Location: ${projectDir} 📁`);
+    if (isEmptyProjectName) {
+      console.log(`Project created successfully! ✅\n`);
+    } else {
+      console.log(`Project "${projectName}" created successfully! ✅\n`);
+    }
+    console.log(`Location: ${projectDir} 📁\n`);
     runProjectOrNot(projectDir);
   }
 
