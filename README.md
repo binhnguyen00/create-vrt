@@ -13,7 +13,7 @@ Stop wasting time on setup! Start building faster.
 - **Vite⚡**
 - **React**
 - **Tailwind**
-- **[HeroUI](https://www.heroui.com/)** - Beautiful, accessible component library build on top of Tailwind
+- [**HeroUI**](https://www.heroui.com/) - Beautiful, accessible component library build on top of Tailwind
 
 **📦 Pre-configured** - Everything wired up and ready to use
 
@@ -50,7 +50,7 @@ Whether you're prototyping a new idea, starting a client project, or just want t
 
 ## Installation
 ```bash
-npm install -g create-vrt@latest
+npm install -g @jackjack66/create-vrt@latest
 ```
 
 ## Create a new project
