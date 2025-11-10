@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 const fs = require("fs");
 const ora = require("ora");
 const path = require("path");
@@ -8,6 +9,13 @@ const { promisify } = require("util");
 
 const execAsync = promisify(exec);
 const REPO_URL = "https://github.com/binhnguyen00/juliette";
+const args = process.argv.slice(2);
+
+if (args.includes("--version") || args.includes("-v")) {
+  const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "./package.json"), "utf8"));
+  console.log(pkg.version);
+  process.exit(0);
+}
 
 function ask(query) {
   const rl = readline.createInterface({

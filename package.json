@@ -8,7 +8,7 @@
   ],
   "version": "1.0.10",
   "bin": {
-    "create-vrt": "index.js"
+    "create-vrt": "./index.js"
   },
   "license": "MIT",
   "dependencies": {
