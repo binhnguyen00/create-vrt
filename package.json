@@ -6,7 +6,7 @@
     "react",
     "tailwind"
   ],
-  "version": "1.0.12",
+  "version": "1.0.13",
   "bin": {
     "create-vrt": "./index.js"
   },
